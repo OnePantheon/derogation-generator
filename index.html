@@ -35,8 +35,8 @@
                             placeholder="pseudo discord sans le @" />
                     </label>
                     <label for="Role" class="col">
-                        Votre rôle <em class="text-grey">- toujours membre</em>
-                        <input type="text" id="Role" name="Role" value="membre" class="autocompleted" />
+                        Votre rôle <em class="text-grey">- non modifiable</em>
+                        <input type="text" id="Role" name="Role" value="membre" class="already-filled" readonly />
                     </label>
                 </div>
             </fieldset>
@@ -232,7 +232,8 @@ Je ne pourrai pas être libre à l'heure demandée.</textarea>
 
         input.autocompleted:valid,
         input.optional:not(:placeholder-shown),
-        textarea.optional:not(:empty) {
+        textarea.optional:not(:empty),
+        input.already-filled {
             background-color: #f5fceb;
         }
     </style>
