@@ -156,6 +156,40 @@ function initActionButtons() {
         a.click();
         document.body.removeChild(a);
     });
+
+    document.getElementById('autosign').addEventListener('click', (event) => {
+        event.preventDefault();
+        autosign();
+    })
+}
+
+function autosign() {
+    console.log("autosign");
+
+    const canvas = document.getElementById('signaturePad');
+    const ctx = canvas.getContext('2d');
+    ctx.font = '16px Arial';
+    ctx.textAlign = 'center';
+    ctx.fillStyle="black";
+    
+    ctx.strokeStyle = 'white';
+    ctx.lineWidth = 2;
+
+    const prenom = document.getElementById('Prenom').value;
+    const nom = document.getElementById('Nom').value;
+    const name = `${prenom} ${nom}`;
+
+    ctx.strokeText(name, canvas.width / 2, canvas.height / 2);
+    ctx.fillText(name, canvas.width / 2, canvas.height / 2);
+
+    const timestamp = new Date().toLocaleString();
+    ctx.font = '12px Arial';
+    ctx.strokeText(timestamp, canvas.width / 2, canvas.height / 2 + 20);
+    ctx.fillText(timestamp, canvas.width / 2, canvas.height / 2 + 20);
+
+    ctx.font = '10px Arial';
+    ctx.strokeText('Signé numériquement', canvas.width / 2, canvas.height / 2 - 20);
+    ctx.fillText('Signé numériquement', canvas.width / 2, canvas.height / 2 - 20);
 }
 
 const templateDerogationMinSvg = `

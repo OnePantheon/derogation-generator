@@ -13,7 +13,7 @@
 <body>
     <main class="container">
         <h1>Générateur de demande de procuration One Panthéon</h1>
-        <p class="text-grey">En cas de dysfonctionnement, merci de le signaler à Logan.</p>
+        <p class="text-grey">Pour toute demande d'assistance, créez un ticket ou contactez directement Logan.</p>
         <h2>Paramètres :</h2>
         <form id="templateForm">
             <fieldset>
@@ -70,7 +70,7 @@
             <fieldset>
                 <legend>Remplacement</legend>
 
-                <blockquote>
+                <div class="note">
                     <p>Process d'un vote par procuration:</p>
                     <ol>
                         <li>
@@ -88,7 +88,7 @@
                             Envoyez aussi au bureau cette lettre de dérogation signée.
                         </li>
                     </ol>
-                </blockquote>
+                </div>
 
                 <div class="row">
                     <div class="col">
@@ -130,16 +130,17 @@ Je ne pourrai pas être libre à l'heure demandée.</textarea>
                             <button id="clear" class="tag is-small">
                                 Réinitialiser la signature
                             </button>
+                            <button id="autosign" class="tag is-small">
+                                Signer numériquement
+                            </button>
                         </div>
                     </label>
                 </div>
 
                 <div class="note">
                     <p>
-                        Note : Le pad de signature ne fonctionne que sur un écran dont la
-                        mise à échelle n'aurait pas été modifiée.<br />Pour rétablir une
-                        mise à échelle à 100% : Bureau > Paramètre d'affichage > Modifier
-                        la taille du texte, des applications et d'autres éléments.
+                        Note : Le pad de signature peut mal fonctionner sur un écran hidpi. Cliquez sur "Signer
+                        numériquement" à la place.
                     </p>
                 </div>
             </fieldset>
