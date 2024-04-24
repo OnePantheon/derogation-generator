@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="./chota.css" />
+    <title>Générateur de demande de dérogation</title>
+    <script src="./sketch.js"></script>
+    <script src="./index.js"></script>
+</head>
+
+<body>
+    <main class="container">
+        <h1>Générateur de demande de procuration One Panthéon</h1>
+        <p class="text-grey">En cas de dysfonctionnement, merci de le signaler à Logan.</p>
+        <h2>Paramètres :</h2>
+        <form id="templateForm">
+            <fieldset>
+                <legend>Vous</legend>
+                <div class="row">
+                    <label for="Prenom" class="col">
+                        Prenom
+                        <input type="text" id="Prenom" name="Prenom" required class="autocompleted" />
+                    </label>
+                    <label for="Nom" class="col">
+                        NOM
+                        <input type="text" id="Nom" name="Nom" required class="autocompleted" />
+                    </label>
+                </div>
+                <div class="row">
+                    <label for="Discord" class="col">
+                        Pseudo discord <em class="text-grey">- si applicable</em>
+                        <input type="text" id="Discord" name="Discord" class="optional"
+                            placeholder="pseudo discord sans le @" />
+                    </label>
+                    <label for="Role" class="col">
+                        Votre rôle <em class="text-grey">- toujours membre</em>
+                        <input type="text" id="Role" name="Role" value="membre" class="autocompleted" />
+                    </label>
+                </div>
+            </fieldset>
+
+            <fieldset>
+                <legend>La réunion</legend>
+
+                <div class="row">
+                    <div class="col">
+                        <label for="TypeAG1">
+                            <input type="radio" id="TypeAG1" name="TypeAG" value="AGO" />
+                            AGO (Assemblée Générale Ordinaire)<br />
+                        </label>
+                        <label for="TypeAG2">
+                            <input type="radio" id="TypeAG2" name="TypeAG" value="AGE" />
+                            AGE (Assemblée Générale Extraordinaire)<br />
+                        </label>
+                        <label for="TypeAG3">
+                            <input type="radio" id="TypeAG3" name="TypeAG" value="AGO/AGE" />
+                            AGO et AGE<br />
+                        </label>
+                    </div>
+                    <div class="col">
+                        <label for="DateReu">
+                            Date et heure de la réunion
+                            <input type="datetime-local" id="DateReu" name="DateReu" required class="autocompleted" />
+                        </label>
+                    </div>
+                </div>
+            </fieldset>
+            <fieldset>
+                <legend>Remplacement</legend>
+
+                <blockquote>
+                    <p>Process d'un vote par procuration:</p>
+                    <ol>
+                        <li>
+                            Vous devez trouver une personne qui va voter à votre place (cela peut
+                            être un membre du bureau). Demandez son accord puis indiquez son nom ci-dessous.
+                        </li>
+                        <li>
+                            Communiquez-lui également votre voix (oui / non / blanc)
+                        </li>
+                        <li>
+                            Le jour du scrutin, la personne qui vote pour vous doit notifier aux organisateurs
+                            votre voix.
+                        </li>
+                        <li>
+                            Envoyez aussi au bureau cette lettre de dérogation signée.
+                        </li>
+                    </ol>
+                </blockquote>
+
+                <div class="row">
+                    <div class="col">
+                        <label for="NomDerogatoire">
+                            Prénom NOM de la personne dérogatoire
+                            <input type="text" id="NomDerogatoire" name="NomDerogatoire" required
+                                class="autocompleted" />
+                        </label>
+                    </div>
+                    <div class="col"></div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <label for="NomDerogatoire">
+                            Raison de votre absence
+                            <textarea id="Raison" required rows="3" class="optional" name="Raison">
+Je ne pourrai pas être libre à l'heure demandée.</textarea>
+                        </label>
+                    </div>
+                </div>
+            </fieldset>
+
+            <fieldset>
+                <legend>Signez le document</legend>
+
+                <div class="row">
+                    <label for="Today" class="col">
+                        Date
+                        <input type="date" id="Today" required class="autocompleted" name="Today" />
+                    </label>
+
+                    <label for="signaturePad" class="col">
+                        <p>
+                            <span>Signature</span>
+                        </p>
+                        <div class="text-center">
+                            <canvas id="signaturePad" width="200" height="100"></canvas>
+                            <br />
+                            <button id="clear" class="tag is-small">
+                                Réinitialiser la signature
+                            </button>
+                        </div>
+                    </label>
+                </div>
+
+                <div class="note">
+                    <p>
+                        Note : Le pad de signature ne fonctionne que sur un écran dont la
+                        mise à échelle n'aurait pas été modifiée.<br />Pour rétablir une
+                        mise à échelle à 100% : Bureau > Paramètre d'affichage > Modifier
+                        la taille du texte, des applications et d'autres éléments.
+                    </p>
+                </div>
+            </fieldset>
+
+            <div class="text-center stack my-2">
+                <input type="submit" value="Générer" />
+
+
+                <div id="instructions" class="is-hidden">
+                    <img src="./print.png" alt="imprimez en PDF et sans marges" class="col" style="max-width: 40rem;" />
+                    <p class="col">
+                        Si possible,
+                        <button id="downloadPDF" class="tag is-small">
+                            imprimez la page en PDF et sans marges
+                        </button>
+                        . <br>À défaut,
+                        <button id="downloadSVG" class="tag is-small">
+                            enregistrez le fichier SVG
+                        </button>
+                        ou faites une capture d'écran.
+                    </p>
+                </div>
+            </div>
+        </form>
+
+        <h2>Rendu :</h2>
+    </main>
+    <section id="svgContainer">
+        <svg id="emptySvg" width="794" height="1123" fill="none" version="1.1" viewBox="0 0 794 1123"
+            xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+            <text x="20" y="50" fill="#000" font-family="Arial" font-size="18.667px" font-weight="bold"
+                letter-spacing="1px" xml:space="preserve">
+                Veuillez compléter le formulaire ci-dessus au préalable.
+            </text>
+        </svg>
+    </section>
+    <style>
+        @media print {
+            main {
+                display: none;
+            }
+
+            html,
+            body,
+            section {
+                margin: 0;
+                padding: 0;
+            }
+
+            section {
+                display: block;
+                justify-content: unset;
+            }
+        }
+
+
+        #emptySvg,
+        #signaturePad {
+            border: 1px solid black;
+        }
+
+        section {
+            display: flex;
+            justify-content: center;
+        }
+
+        fieldset {
+            margin-top: 2rem;
+        }
+
+        .note {
+            background-color: var(--bg-secondary-color);
+            padding: 1.5rem 2rem;
+            padding-bottom: 1rem;
+            border-left: 3px solid var(--color-lightGrey);
+        }
+
+        .my-2 {
+            margin-top: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .stack {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        input.autocompleted:valid,
+        input.optional:not(:placeholder-shown),
+        textarea.optional:not(:empty) {
+            background-color: #f5fceb;
+        }
+    </style>
+</body>
+
+</html>
